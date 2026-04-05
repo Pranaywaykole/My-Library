@@ -1,0 +1,242 @@
+/* ================================
+   GLOBAL RESET & BASE STYLES
+   ================================ */
+
+/* 
+  Every browser adds its own default margins and padding to elements.
+  This causes inconsistency across different browsers.
+  The * selector means "target EVERY element on the page."
+  We reset margin and padding to 0 so we start from a clean slate.
+  box-sizing: border-box means padding and border are INCLUDED in 
+  the element's total width — this makes layout math much easier.
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  Setting the base font and background for the entire page.
+  Since body wraps everything, these styles cascade down to all elements.
+  #f5f0e8 is a warm cream color — perfect for a cozy library feel.
+*/
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #f5f0e8;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+
+/* ================================
+   NAVIGATION BAR
+   ================================ */
+
+/*
+  We give the nav a dark background, padding for breathing room,
+  and make it sticky so it stays at the top when you scroll.
+*/
+nav {
+  background-color: #1a1a2e;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  position: sticky;
+  top: 0;
+}
+
+/*
+  nav a targets all <a> tags that are INSIDE the <nav>.
+  This is called a descendant selector — very useful.
+  We remove the default underline and set color to a warm gold.
+*/
+nav a {
+  color: #c9a84c;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/*
+  The :hover pseudo-class applies styles when the user 
+  hovers their mouse over the element.
+  This makes the links turn white on hover — a nice subtle effect.
+*/
+nav a:hover {
+  color: white;
+}
+
+
+/* ================================
+   HEADER / HERO SECTION
+   ================================ */
+
+/*
+  The hero section is the big welcome banner at the top.
+  We center everything, give it a tall height, a dark background,
+  and light text so it feels grand and welcoming.
+*/
+header {
+  background-color: #1a1a2e;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: #c9a84c;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+header p {
+  font-size: 20px;
+  color: #ccc;
+  margin-bottom: 35px;
+  max-width: 500px;
+}
+
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+/*
+  We style all buttons with our gold color theme.
+  cursor: pointer changes the mouse cursor to a hand when hovering,
+  indicating the button is clickable.
+*/
+button {
+  background-color: #c9a84c;
+  color: #1a1a2e;
+  border: none;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 25px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+/*
+  transition: background-color 0.3s ease means when the background
+  color changes (on hover), it animates smoothly over 0.3 seconds
+  instead of snapping instantly. This makes your UI feel polished.
+*/
+button:hover {
+  background-color: #a8872e;
+}
+
+
+/* ================================
+   FEATURED BOOKS SECTION
+   ================================ */
+
+section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 30px;
+}
+
+section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  color: #1a1a2e;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+
+/* ================================
+   BOOK CARDS
+   ================================ */
+
+/*
+  We use a class called .books-container to wrap all book cards.
+  display: flex makes all children sit side by side.
+  flex-wrap: wrap means if there are too many, they wrap to next line.
+  gap adds space between cards automatically.
+  justify-content: center centers the cards horizontally.
+*/
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+/*
+  Each individual book card.
+  We give it a white background, rounded corners, shadow,
+  and center-align everything inside it.
+  transition makes any changes animate smoothly.
+*/
+.book-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px 20px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*
+  When user hovers over a book card, it lifts up slightly.
+  translateY(-8px) moves it 8px upward.
+  The shadow becomes stronger to enhance the lifted effect.
+  This is called a "lift on hover" effect — very popular in card design.
+*/
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+  width: 100px;
+  height: 150px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+.book-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.book-card p {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+
+/* ================================
+   FOOTER
+   ================================ */
+
+footer {
+  background-color: #1a1a2e;
+  color: #888;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 14px;
+  margin-top: 60px;
+}
