@@ -1,26 +1,12 @@
 /* ================================
-   GLOBAL RESET & BASE STYLES
+   RESET & BASE
    ================================ */
-
-/* 
-  Every browser adds its own default margins and padding to elements.
-  This causes inconsistency across different browsers.
-  The * selector means "target EVERY element on the page."
-  We reset margin and padding to 0 so we start from a clean slate.
-  box-sizing: border-box means padding and border are INCLUDED in 
-  the element's total width — this makes layout math much easier.
-*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 
-  Setting the base font and background for the entire page.
-  Since body wraps everything, these styles cascade down to all elements.
-  #f5f0e8 is a warm cream color — perfect for a cozy library feel.
-*/
 body {
   font-family: 'Lato', sans-serif;
   background-color: #f5f0e8;
@@ -30,147 +16,244 @@ body {
 
 
 /* ================================
-   NAVIGATION BAR
+   NAVIGATION
    ================================ */
 
 /*
-  We give the nav a dark background, padding for breathing room,
-  and make it sticky so it stays at the top when you scroll.
+  The nav is a flex container.
+  justify-content: space-between pushes the logo to the far left
+  and the links to the far right automatically.
+  align-items: center vertically centers both of them.
+  This is the most classic navbar layout pattern in web development.
 */
 nav {
   background-color: #1a1a2e;
-  padding: 18px 40px;
+  padding: 18px 60px;
   display: flex;
-  justify-content: flex-end;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 /*
-  nav a targets all <a> tags that are INSIDE the <nav>.
-  This is called a descendant selector — very useful.
-  We remove the default underline and set color to a warm gold.
+  z-index: 100 means this element sits ON TOP of everything else
+  when you scroll. Higher z-index = closer to the viewer.
+  Without this, content would scroll over the navbar.
 */
-nav a {
+
+.nav-logo {
   color: #c9a84c;
-  text-decoration: none;
-  font-size: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
   font-weight: 700;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 /*
-  The :hover pseudo-class applies styles when the user 
-  hovers their mouse over the element.
-  This makes the links turn white on hover — a nice subtle effect.
+  The nav-links div is itself a flex container.
+  This makes the four links sit side by side with a gap between them.
+  This is flex inside flex — perfectly normal and very common.
 */
-nav a:hover {
+.nav-links {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #c9a84c;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
   color: white;
 }
 
 
 /* ================================
-   HEADER / HERO SECTION
+   HERO SECTION
    ================================ */
 
 /*
-  The hero section is the big welcome banner at the top.
-  We center everything, give it a tall height, a dark background,
-  and light text so it feels grand and welcoming.
+  The hero uses flex with column direction to stack items vertically.
+  justify-content and align-items both set to center perfectly
+  centers everything both horizontally and vertically.
+  min-height: 90vh means it takes up at least 90% of the screen height.
+  vh stands for viewport height — 100vh = full screen height.
 */
-header {
+.hero {
   background-color: #1a1a2e;
-  color: white;
+  background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 100px 20px;
-  min-height: 400px;
+  padding: 60px 20px;
+}
+
+/*
+  linear-gradient is a CSS function that creates a smooth color
+  transition from one color to another.
+  135deg is the angle — diagonal from top-left to bottom-right.
+  This gives the hero a subtle depth that's more interesting than flat color.
+*/
+
+.hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 25px;
+  max-width: 700px;
 }
 
-header h1 {
+.hero-content h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 56px;
+  font-size: 58px;
   font-weight: 700;
   color: #c9a84c;
-  margin-bottom: 20px;
   line-height: 1.2;
 }
 
-header p {
+.hero-content p {
   font-size: 20px;
-  color: #ccc;
-  margin-bottom: 35px;
+  color: #aaa;
   max-width: 500px;
 }
 
-
-/* ================================
-   BUTTONS
-   ================================ */
-
 /*
-  We style all buttons with our gold color theme.
-  cursor: pointer changes the mouse cursor to a hand when hovering,
-  indicating the button is clickable.
+  hero-buttons is a flex container that places the two buttons
+  side by side with a gap between them.
+  flex-wrap: wrap means on small screens they stack vertically.
 */
-button {
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary {
   background-color: #c9a84c;
   color: #1a1a2e;
   border: none;
-  padding: 12px 30px;
+  padding: 14px 35px;
   font-size: 15px;
   font-weight: 700;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #a8872e;
+  transform: translateY(-2px);
 }
 
 /*
-  transition: background-color 0.3s ease means when the background
-  color changes (on hover), it animates smoothly over 0.3 seconds
-  instead of snapping instantly. This makes your UI feel polished.
+  btn-secondary is an outlined button — transparent background,
+  gold border, gold text. This is called a "ghost button" in design.
+  It gives users a secondary action that feels less dominant than primary.
 */
-button:hover {
-  background-color: #a8872e;
+.btn-secondary {
+  background-color: transparent;
+  color: #c9a84c;
+  border: 2px solid #c9a84c;
+  padding: 14px 35px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #c9a84c;
+  color: #1a1a2e;
 }
 
 
 /* ================================
-   FEATURED BOOKS SECTION
+   STATS BAR
    ================================ */
 
-section {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 30px;
+/*
+  The stats bar sits between the hero and books section.
+  It uses space-evenly to distribute the three stats with equal spacing.
+  This gives it a clean, balanced look without any manual margin work.
+*/
+.stats-bar {
+  background-color: #16213e;
+  padding: 30px 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-section h2 {
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-number {
   font-family: 'Playfair Display', serif;
   font-size: 36px;
-  color: #1a1a2e;
-  margin-bottom: 40px;
+  color: #c9a84c;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+
+/* ================================
+   BOOKS SECTION
+   ================================ */
+
+.books-section {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 30px;
   text-align: center;
 }
 
+.books-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
 
-/* ================================
-   BOOK CARDS
-   ================================ */
+.section-subtitle {
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
 
 /*
-  We use a class called .books-container to wrap all book cards.
-  display: flex makes all children sit side by side.
-  flex-wrap: wrap means if there are too many, they wrap to next line.
-  gap adds space between cards automatically.
-  justify-content: center centers the cards horizontally.
+  The books container uses flex with wrap so cards automatically
+  move to the next row when the screen is not wide enough.
+  justify-content: center keeps them centered even when the last
+  row has fewer cards than the others.
 */
 .books-container {
   display: flex;
@@ -179,38 +262,35 @@ section h2 {
   justify-content: center;
 }
 
-/*
-  Each individual book card.
-  We give it a white background, rounded corners, shadow,
-  and center-align everything inside it.
-  transition makes any changes animate smoothly.
-*/
 .book-card {
   background-color: white;
-  border-radius: 12px;
-  padding: 25px 20px;
-  width: 200px;
+  border-radius: 16px;
+  padding: 28px 22px;
+  width: 210px;
   text-align: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.07);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /*
+    display: flex with column direction on the card itself
+    lets us push the button to the bottom automatically using
+    margin-top: auto on the button — a very useful trick.
+  */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-/*
-  When user hovers over a book card, it lifts up slightly.
-  translateY(-8px) moves it 8px upward.
-  The shadow becomes stronger to enhance the lifted effect.
-  This is called a "lift on hover" effect — very popular in card design.
-*/
 .book-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 .book-card img {
   width: 100px;
   height: 150px;
-  border-radius: 6px;
-  margin-bottom: 15px;
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -218,13 +298,124 @@ section h2 {
   font-family: 'Playfair Display', serif;
   font-size: 16px;
   color: #1a1a2e;
-  margin-bottom: 6px;
 }
 
-.book-card p {
+.book-card .author {
   font-size: 13px;
+  color: #999;
+}
+
+/*
+  A genre tag badge — small colored label showing the book's genre.
+  display: inline-block lets us give it padding while keeping it small.
+*/
+.genre-tag {
+  background-color: #f5f0e8;
+  color: #c9a84c;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/*
+  margin-top: auto is a Flexbox trick.
+  In a flex column container, auto margin pushes an element
+  as far down as possible — to the very bottom of the card.
+  This makes all "Read Now" buttons align at the same height
+  regardless of how long the book title or author name is.
+*/
+.book-card button {
+  background-color: #1a1a2e;
+  color: #c9a84c;
+  border: none;
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+}
+
+.book-card button:hover {
+  background-color: #c9a84c;
+  color: #1a1a2e;
+}
+
+
+/* ================================
+   READING ROOMS SECTION
+   ================================ */
+
+.rooms-section {
+  background-color: #1a1a2e;
+  padding: 80px 30px;
+  text-align: center;
+}
+
+.rooms-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: #c9a84c;
+  margin-bottom: 10px;
+}
+
+.rooms-section .section-subtitle {
+  color: #666;
+  margin-bottom: 50px;
+}
+
+/*
+  The rooms container — same flex wrap pattern as books.
+  justify-content: center keeps cards centered.
+*/
+.rooms-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.room-card {
+  background-color: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 240px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.room-card:hover {
+  transform: translateY(-8px);
+  border-color: #c9a84c;
+}
+
+.room-icon {
+  font-size: 42px;
+}
+
+.room-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #c9a84c;
+}
+
+.room-card p {
+  font-size: 14px;
   color: #888;
-  margin-bottom: 15px;
+  line-height: 1.7;
 }
 
 
@@ -233,10 +424,59 @@ section h2 {
    ================================ */
 
 footer {
-  background-color: #1a1a2e;
-  color: #888;
-  text-align: center;
-  padding: 30px 20px;
+  background-color: #0f0f1a;
+  padding: 50px 60px 25px;
+}
+
+/*
+  The footer content uses space-between to push the brand
+  to the left and the links to the right.
+*/
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.footer-brand span {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #c9a84c;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  color: #555;
   font-size: 14px;
-  margin-top: 60px;
+  max-width: 280px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #c9a84c;
+}
+
+.footer-bottom {
+  color: #333;
+  font-size: 13px;
+  text-align: center;
+  padding-top: 25px;
+  border-top: 1px solid #1a1a2e;
 }
