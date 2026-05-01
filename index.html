@@ -16,7 +16,177 @@
       <div class="nav-logo">
         📚 The Grand Library
       </div>
+<<<<<<< Updated upstream
       <div class="nav-links">
+=======
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">70,000+</span>
+      <span class="stat-label">Free Books</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">5</span>
+      <span class="stat-label">Reading Rooms</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">∞</span>
+      <span class="stat-label">Stories to Explore</span>
+    </div>
+  </div>
+
+  <!-- FEATURED BOOKS SECTION -->
+  <section class="books-section">
+    <h2>Featured Books</h2>
+    <p class="section-subtitle">Hand picked classics waiting for you</p>
+
+    <!-- SEARCH BAR -->
+    <div class="search-container">
+      <input type="text" id="book-search" placeholder="Search by title, author or genre..." class="search-input">
+    </div>
+
+    <!-- GENRE FILTER BUTTONS -->
+    <div class="genre-filters">
+      <button class="genre-filter active" data-genre="all">All</button>
+      <button class="genre-filter" data-genre="Mystery">Mystery</button>
+      <button class="genre-filter" data-genre="Romance">Romance</button>
+      <button class="genre-filter" data-genre="Adventure">Adventure</button>
+      <button class="genre-filter" data-genre="Horror">Horror</button>
+    </div>
+
+    <!-- BOOKS GRID — now filled by JavaScript -->
+    <div class="books-container"></div>
+  </section>
+
+  <div class="floating-character">🧙 You are not logged in</div>
+
+  <!-- READING ROOMS SECTION -->
+  <section class="rooms-section">
+    <h2>Choose Your Reading Spot</h2>
+    <p class="section-subtitle">Every room has its own atmosphere</p>
+
+    <div class="rooms-container">
+      <div class="room-card">
+        <div class="room-icon">☕</div>
+        <h3>Coffee Shop</h3>
+        <p>
+          Cozy corner with soft chatter and warm lighting. Chat with fellow
+          readers.
+        </p>
+      </div>
+
+      <div class="room-card">
+        <div class="room-icon">🛋️</div>
+        <h3>Reading Lounge</h3>
+        <p>
+          Big sofas and silence. Perfect for deep reading without distraction.
+        </p>
+      </div>
+
+      <div class="room-card">
+        <div class="room-icon">🏛️</div>
+        <h3>Grand Hall</h3>
+        <p>The main library floor. Explore shelves and discover new books.</p>
+      </div>
+
+      <div class="room-card">
+        <div class="room-icon">🌿</div>
+        <h3>Garden Terrace</h3>
+        <p>Read outdoors under open sky with nature sounds playing softly.</p>
+      </div>
+    </div>
+  </section>
+  <!-- CHARACTER PREVIEW SECTION -->
+  <section class="character-section">
+    <h2>Create Your Character</h2>
+    <p class="section-subtitle">
+      Choose who you are before you enter the library
+    </p>
+    <div class="character-preview-container">
+      <div class="character-card scholar-card">
+        <div class="green-flash"></div>
+        <div class="trail trail1"></div>
+        <div class="trail trail2"></div>
+        <div class="trail trail3"></div>
+        <div class="magic-bolt"></div>
+        <div class="character-avatar">🧙</div>
+        <div class="character-status online"></div>
+        <h3>The Scholar</h3>
+        <p>Loves classics and philosophy. Always found in the Grand Hall.</p>
+        <span class="character-tag">245 readers chose this</span>
+      </div>
+
+      <div class="character-card detective-card">
+        <div class="muzzle"></div>
+        <div class="smoke"></div>
+        <div class="bullet"></div>
+        <div class="character-avatar">🕵️</div>
+        <div class="character-status online"></div>
+        <h3>The Detective</h3>
+        <p>
+          Mystery lover. Usually spotted in the coffee shop with a notebook.
+        </p>
+        <span class="character-tag">189 readers chose this</span>
+      </div>
+
+      <div class="character-card wanderer-card">
+        <div class="page page1"></div>
+        <div class="page page2"></div>
+        <div class="page page3"></div>
+        <div class="step step1"></div>
+        <div class="step step2"></div>
+        <div class="step step3"></div>
+        <div class="step step4"></div>
+        <div class="character-avatar">🧝</div>
+        <div class="character-status offline"></div>
+        <h3>The Wanderer</h3>
+        <p>Reads everything. No fixed spot — roams all rooms freely.</p>
+        <span class="character-tag">312 readers chose this</span>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="books-section">
+    <h2>Featured Books</h2>
+    <p class="section-subtitle">70,000+ free classics from Project Gutenberg</p>
+
+    <!-- RESULTS COUNT -->
+    <p class="results-count"></p>
+
+    <!-- SEARCH BAR -->
+    <div class="search-container">
+      <input type="text" id="book-search" placeholder="Search by title or author..." class="search-input">
+    </div>
+
+    <!-- GENRE FILTER BUTTONS — data-topic matches Gutendex API -->
+    <div class="genre-filters">
+      <button class="genre-filter active" data-topic="all">All</button>
+      <button class="genre-filter" data-topic="mystery">Mystery</button>
+      <button class="genre-filter" data-topic="romance">Romance</button>
+      <button class="genre-filter" data-topic="adventure">Adventure</button>
+      <button class="genre-filter" data-topic="horror">Horror</button>
+      <button class="genre-filter" data-topic="science fiction">Sci-Fi</button>
+      <button class="genre-filter" data-topic="philosophy">Philosophy</button>
+    </div>
+
+    <!-- BOOKS GRID -->
+    <div class="books-container"></div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span>📚 The Grand Library</span>
+        <p>A free, open library for every reader in the world.</p>
+      </div>
+      <div class="footer-links">
+>>>>>>> Stashed changes
         <a href="#">Home</a>
         <a href="#">Library</a>
         <a href="#">My Character</a>

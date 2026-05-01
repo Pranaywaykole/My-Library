@@ -1,0 +1,1635 @@
+/* ================================
+   RESET & BASE
+   ================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+  We set the root font size here.
+  All rem values in this file are based on this.
+  On mobile this stays 16px.
+  We can reduce it in media queries to scale everything down.
+*/
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #f5f0e8;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+
+/* ================================
+   KEYFRAME ANIMATIONS
+   ================================ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { opacity: 0.7; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes borderGlow {
+  0%   { box-shadow: 0 0 5px rgba(201,168,76,0.2); }
+  50%  { box-shadow: 0 0 20px rgba(201,168,76,0.6); }
+  100% { box-shadow: 0 0 5px rgba(201,168,76,0.2); }
+}
+
+
+/* ================================
+   NAVIGATION — MOBILE FIRST
+   ================================ */
+
+/*
+  On mobile the nav stacks vertically — logo on top, links below.
+  flex-direction: column stacks them.
+  gap adds space between logo and links.
+  padding is smaller on mobile to save space.
+*/
+nav {
+  background-color: #1a1a2e;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  color: #c9a84c;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/*
+  On mobile the nav links wrap so they don't overflow.
+  justify-content: center keeps them centered.
+  gap is smaller to fit more links on small screens.
+*/
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #c9a84c;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover { color: white; }
+
+/*
+  At 768px and above the nav switches to the classic
+  logo-left, links-right horizontal layout.
+  flex-direction: row puts them side by side.
+  justify-content: space-between pushes them to opposite ends.
+*/
+@media (min-width: 768px) {
+  nav {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px 60px;
+    gap: 0;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
+    gap: 35px;
+  }
+
+  .nav-logo { font-size: 1.375rem; }
+
+  .nav-links a { font-size: 0.875rem; }
+}
+
+
+/* ================================
+   HERO SECTION — MOBILE FIRST
+   ================================ */
+
+/*
+  On mobile the hero is shorter and text is smaller.
+  min-height: 70vh instead of 90vh saves space on small screens.
+*/
+.hero {
+  background-color: #1a1a2e;
+  background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+
+/*
+  Mobile hero heading is 2rem (32px).
+  On desktop it grows to 3.625rem (58px).
+  This prevents huge text that overflows on small screens.
+*/
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c9a84c;
+  line-height: 1.2;
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: #aaa;
+  max-width: 500px;
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  animation: fadeSlideUp 0.8s ease forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+/*
+  On mobile buttons are full width — much easier to tap
+  with a thumb than a narrow centered button.
+*/
+.btn-primary,
+.btn-secondary {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #c9a84c;
+  color: #1a1a2e;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #a8872e;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #c9a84c;
+  border: 2px solid #c9a84c;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #c9a84c;
+  color: #1a1a2e;
+}
+
+/*
+  At 768px and above, hero heading gets bigger,
+  buttons go side by side and auto-width instead of full width.
+*/
+@media (min-width: 768px) {
+  .hero { min-height: 90vh; padding: 60px 20px; }
+
+  .hero-content h1 { font-size: 3.625rem; }
+
+  .hero-content p  { font-size: 1.25rem; }
+
+  .hero-buttons {
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: auto;
+    padding: 14px 35px;
+  }
+}
+
+
+/* ================================
+   STATS BAR — MOBILE FIRST
+   ================================ */
+
+/*
+  On mobile stats stack in a 2-column grid pattern using flex wrap.
+  padding is smaller to fit on narrow screens.
+*/
+.stats-bar {
+  background-color: #16213e;
+  padding: 24px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #c9a84c;
+  font-weight: 700;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+.stat:nth-child(1) .stat-number { animation-delay: 0s; }
+.stat:nth-child(2) .stat-number { animation-delay: 0.4s; }
+.stat:nth-child(3) .stat-number { animation-delay: 0.8s; }
+
+.stat-label {
+  font-size: 0.7rem;
+  color: #888;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .stats-bar   { padding: 30px 60px; }
+  .stat-number { font-size: 2.25rem; }
+  .stat-label  { font-size: 0.8125rem; }
+}
+
+
+/* ================================
+   BOOKS SECTION — MOBILE FIRST
+   ================================ */
+
+/*
+  On mobile: full width, smaller padding, smaller heading.
+  Books will stack in a single column because each card
+  has width: 100% on mobile.
+*/
+.books-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.books-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 35px;
+}
+
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/*
+  On mobile each book card takes full width so it
+  is large and easy to read. As the screen grows
+  we allow more cards per row.
+*/
+.book-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px 18px;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.07);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.book-card:nth-child(1) { animation-delay: 0.1s; }
+.book-card:nth-child(2) { animation-delay: 0.25s; }
+.book-card:nth-child(3) { animation-delay: 0.4s; }
+.book-card:nth-child(4) { animation-delay: 0.55s; }
+
+.book-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 35px rgba(0,0,0,0.12);
+}
+
+.book-card img {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.book-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: #1a1a2e;
+}
+
+.book-card .author {
+  font-size: 0.8125rem;
+  color: #999;
+}
+
+.genre-tag {
+  background-color: #f5f0e8;
+  color: #c9a84c;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #c9a84c;
+  color: #1a1a2e;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.new-badge     { background-color: #2ecc71; color: white; }
+.classic-badge { background-color: #9b59b6; color: white; }
+
+.book-card button {
+  background-color: #1a1a2e;
+  color: #c9a84c;
+  border: none;
+  padding: 10px 24px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+  width: 100%;
+}
+
+.book-card button:hover {
+  background-color: #c9a84c;
+  color: #1a1a2e;
+}
+
+/*
+  At 480px two cards can sit side by side.
+  At 768px three cards can sit side by side.
+  At 1024px we get the original desktop layout with fixed widths.
+*/
+@media (min-width: 480px) {
+  .book-card { width: calc(50% - 10px); max-width: none; }
+}
+
+@media (min-width: 768px) {
+  .books-section { margin: 80px auto; padding: 0 30px; }
+  .books-section h2 { font-size: 2.5rem; }
+  .section-subtitle { font-size: 1rem; margin-bottom: 50px; }
+  .books-container  { gap: 30px; }
+  .book-card        { width: calc(33.333% - 20px); }
+  .book-card button { width: auto; }
+}
+
+@media (min-width: 1024px) {
+  .book-card { width: 210px; }
+}
+
+
+/* ================================
+   ROOMS SECTION — MOBILE FIRST
+   ================================ */
+
+.rooms-section {
+  background-color: #1a1a2e;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.rooms-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #c9a84c;
+  margin-bottom: 8px;
+}
+
+.rooms-section .section-subtitle {
+  color: #666;
+  margin-bottom: 35px;
+}
+
+.rooms-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/*
+  On mobile room cards are full width.
+  At 600px two fit side by side.
+  At 1024px four fit in a row.
+*/
+.room-card {
+  background-color: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 16px;
+  padding: 30px 24px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.room-card:hover {
+  transform: translateY(-8px);
+  border-color: #c9a84c;
+  animation: borderGlow 1.5s ease-in-out infinite;
+}
+
+.room-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.room-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #c9a84c;
+}
+
+.room-card p {
+  font-size: 0.875rem;
+  color: #888;
+  line-height: 1.7;
+}
+
+@media (min-width: 600px) {
+  .room-card { width: calc(50% - 10px); }
+}
+
+@media (min-width: 768px) {
+  .rooms-section { padding: 80px 30px; }
+  .rooms-section h2 { font-size: 2.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .room-card { width: 220px; }
+}
+
+
+/* ================================
+   CHARACTER SECTION — MOBILE FIRST
+   ================================ */
+
+.character-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.character-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.character-preview-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.character-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 260px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.07);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 35px rgba(0,0,0,0.12);
+}
+
+.character-avatar {
+  font-size: 4rem;
+  line-height: 1;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite alternate;
+}
+
+.character-card:nth-child(1) .character-avatar { animation-delay: 0s; }
+.character-card:nth-child(2) .character-avatar { animation-delay: 0.5s; }
+.character-card:nth-child(3) .character-avatar { animation-delay: 1s; }
+
+.character-status {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.character-status.online {
+  background-color: #2ecc71;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.character-status.offline { background-color: #999; }
+
+.character-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.375rem;
+  color: #1a1a2e;
+}
+
+.character-card p { font-size: 0.875rem; color: #888; line-height: 1.7; }
+
+.character-tag {
+  font-size: 0.75rem;
+  color: #c9a84c;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+@media (min-width: 768px) {
+  .character-section { margin: 80px auto; padding: 0 30px; }
+  .character-section h2 { font-size: 2.5rem; }
+}
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+/* ================================
+   CHARACTER CARDS — BASE SETUP
+   All cards need position relative
+   and overflow hidden so effects
+   stay contained inside the card
+   ================================ */
+  /* .character-card {
+  position: absolute;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  width: 260px;          
+  min-width: 220px;      
+  flex-shrink: 0;        
+}  */
+
+/* ================================
+   SCHOLAR — WIZARD EFFECT
+   Green magic bolt fires from staff
+   Page flashes green on cast
+   ================================ */
+
+/* The full card green flash overlay */
+.green-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(62, 207, 122, 0);
+  pointer-events: none;
+  z-index: 3;
+  border-radius: var(--border-radius-lg, 20px);
+  transition: none;
+}
+
+/* The glowing magic bolt itself */
+.magic-bolt {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3ecf7a;
+  box-shadow: 0 0 10px #3ecf7a, 0 0 20px #3ecf7a;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* The three trailing particles behind the bolt */
+.trail {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+}
+
+/* Activate effects on hover */
+.scholar-card:hover .avatar,
+.scholar-card:hover .character-avatar {
+  transform: rotate(-15deg) scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.scholar-card:hover .magic-bolt {
+  animation: scholarBoltFire 0.9s ease-out forwards;
+}
+
+.scholar-card:hover .green-flash {
+  animation: scholarPageFlash 1s ease-out 0.3s forwards;
+}
+
+.scholar-card:hover .trail1 {
+  animation: scholarTrailFade 0.7s ease-out 0.15s forwards;
+  top: 55px;
+  left: calc(50% + 8px);
+  width: 8px;
+  height: 8px;
+  background: #3ecf7a;
+}
+
+.scholar-card:hover .trail2 {
+  animation: scholarTrailFade 0.7s ease-out 0.28s forwards;
+  top: 72px;
+  left: calc(50% + 20px);
+  width: 6px;
+  height: 6px;
+  background: #7eedb6;
+}
+
+.scholar-card:hover .trail3 {
+  animation: scholarTrailFade 0.7s ease-out 0.42s forwards;
+  top: 92px;
+  left: calc(50% + 32px);
+  width: 4px;
+  height: 4px;
+  background: #b5f5d4;
+}
+
+.scholar-card:hover {
+  border-color: #3ecf7a;
+}
+
+/* Bolt shoots diagonally down and to the right */
+@keyframes scholarBoltFire {
+  0% {
+    transform: translateX(-50%) scale(0) translate(0px, 0px);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(-50%) scale(1.2) translate(0px, 0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(90px) scale(0.3) translate(0px, 100px);
+    opacity: 0;
+  }
+}
+
+/* Trailing particles fade in then shrink away */
+@keyframes scholarTrailFade {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+}
+
+/* The whole card flashes with green light then fades */
+@keyframes scholarPageFlash {
+  0%   { background: rgba(62, 207, 122, 0); }
+  25%  { background: rgba(62, 207, 122, 0.30); }
+  60%  { background: rgba(62, 207, 122, 0.15); }
+  100% { background: rgba(62, 207, 122, 0); }
+}
+
+
+/* ================================
+   DETECTIVE — BULLET EFFECT
+   Muzzle flash fires from gun
+   Bullet travels toward the user
+   Smoke puff rises from barrel
+   ================================ */
+
+/* Orange muzzle flash at gun barrel */
+.muzzle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f39c12;
+  box-shadow: 0 0 8px #f39c12;
+  top: 52px;
+  right: 44px;
+  transform: scale(0);
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/*
+  The bullet — styled as a metallic capsule shape.
+  Starts off the left edge and travels right toward viewer.
+  Gradient gives it a shiny metallic look.
+*/
+.bullet {
+  position: absolute;
+  width: 26px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #666 0%, #ccc 50%, #fff 80%, #aaa 100%);
+  top: 56px;
+  left: -30px;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Grey smoke cloud rises from barrel after shot */
+.smoke {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(150, 150, 150, 0.5);
+  top: 48px;
+  right: 46px;
+  transform: scale(0);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Avatar leans back slightly as if recoiling */
+.detective-card:hover .avatar,
+.detective-card:hover .character-avatar {
+  animation: detectiveRecoil 0.4s ease-out forwards;
+}
+
+.detective-card:hover .muzzle {
+  animation: detectiveMuzzleFlash 0.18s ease-out forwards;
+}
+
+.detective-card:hover .bullet {
+  animation: detectiveBulletTravel 0.6s cubic-bezier(0.1, 0, 0.9, 1) 0.08s forwards;
+}
+
+.detective-card:hover .smoke {
+  animation: detectiveSmokePuff 0.8s ease-out 0.1s forwards;
+}
+
+.detective-card:hover {
+  border-color: #e74c3c;
+}
+
+/* Recoil — avatar jerks back then settles */
+@keyframes detectiveRecoil {
+  0%   { transform: translateX(0px) rotate(0deg); }
+  20%  { transform: translateX(-8px) rotate(-4deg); }
+  50%  { transform: translateX(-4px) rotate(-2deg); }
+  100% { transform: translateX(0px) rotate(0deg); }
+}
+
+/* Muzzle flash blooms bright then vanishes instantly */
+@keyframes detectiveMuzzleFlash {
+  0%   { transform: scale(0); opacity: 1; }
+  50%  { transform: scale(1.6); opacity: 1; }
+  100% { transform: scale(0.2); opacity: 0; }
+}
+
+/* Bullet travels from left side to beyond the right edge */
+@keyframes detectiveBulletTravel {
+  0% {
+    left: -30px;
+    opacity: 1;
+    transform: scaleX(1) scaleY(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scaleX(1.2) scaleY(1);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: 230px;
+    opacity: 0;
+    transform: scaleX(0.5) scaleY(0.5);
+  }
+}
+
+/* Smoke rises and expands then fades */
+@keyframes detectiveSmokePuff {
+  0% {
+    transform: scale(0) translateY(0px);
+    opacity: 0.8;
+  }
+  40% {
+    transform: scale(1.8) translateY(-6px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(3) translateY(-18px);
+    opacity: 0;
+  }
+}
+
+
+/* ================================
+   WANDERER — ROAMING EFFECT
+   Avatar sways left and right
+   Book pages scatter in all directions
+   Glowing footsteps appear below
+   ================================ */
+
+/* Each flying page looks like a tiny open book */
+.page {
+  position: absolute;
+  width: 15px;
+  height: 19px;
+  border-radius: 2px;
+  background: #fffdf5;
+  border: 0.5px solid #ddd;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%) scale(0) rotate(0deg);
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Lines on the page to look like text */
+.page::before {
+  content: '';
+  display: block;
+  width: 80%;
+  height: 1px;
+  background: #bbb;
+  margin: 3px auto 2px;
+  box-shadow:
+    0 3px 0 #bbb,
+    0 6px 0 #bbb,
+    0 9px 0 #bbb,
+    0 12px 0 #bbb;
+}
+
+/* Glowing footstep dots that appear one by one */
+.step {
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8e44ad;
+  box-shadow: 0 0 6px #8e44ad;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Avatar sways continuously while hovering */
+.wanderer-card:hover .avatar,
+.wanderer-card:hover .character-avatar {
+  animation: wandererSway 1s ease-in-out infinite alternate;
+}
+
+/* Page 1 — flies to upper left */
+.wanderer-card:hover .page1 {
+  animation: wandererPageLeft 1s ease-out 0.05s forwards;
+}
+
+/* Page 2 — flies straight up and to the right */
+.wanderer-card:hover .page2 {
+  animation: wandererPageRight 1s ease-out 0.2s forwards;
+}
+
+/* Page 3 — flies upward almost straight */
+.wanderer-card:hover .page3 {
+  animation: wandererPageUp 1s ease-out 0.35s forwards;
+}
+
+/* Footsteps appear left to right in sequence */
+.wanderer-card:hover .step1 {
+  animation: wandererStep 0.6s ease-out 0.15s forwards;
+  bottom: 30px;
+  left: 30px;
+}
+
+.wanderer-card:hover .step2 {
+  animation: wandererStep 0.6s ease-out 0.35s forwards;
+  bottom: 24px;
+  left: 55px;
+}
+
+.wanderer-card:hover .step3 {
+  animation: wandererStep 0.6s ease-out 0.55s forwards;
+  bottom: 30px;
+  left: 80px;
+}
+
+.wanderer-card:hover .step4 {
+  animation: wandererStep 0.6s ease-out 0.75s forwards;
+  bottom: 24px;
+  left: 105px;
+}
+
+.wanderer-card:hover .step5 {
+  animation: wandererStep 0.6s ease-out 0.95s forwards;
+  bottom: 30px;
+  left: 130px;
+}
+
+.wanderer-card:hover {
+  border-color: #8e44ad;
+}
+
+/* Continuous gentle swaying — left to right */
+@keyframes wandererSway {
+  0%   { transform: translateX(-10px) rotate(-6deg); }
+  100% { transform: translateX(10px) rotate(6deg); }
+}
+
+/* Page flies to the upper left */
+@keyframes wandererPageLeft {
+  0% {
+    transform: translateX(-50%) scale(0) rotate(0deg);
+    opacity: 0;
+    top: 54px;
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-80px) scale(1) rotate(-30deg);
+    top: 28px;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-130px) scale(0.6) rotate(-55deg);
+    top: -20px;
+  }
+}
+
+/* Page flies to the upper right */
+@keyframes wandererPageRight {
+  0% {
+    transform: translateX(-50%) scale(0) rotate(0deg);
+    opacity: 0;
+    top: 54px;
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(30px) scale(1) rotate(18deg);
+    top: 22px;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80px) scale(0.5) rotate(38deg);
+    top: -18px;
+  }
+}
+
+/* Page flies almost straight upward */
+@keyframes wandererPageUp {
+  0% {
+    transform: translateX(-50%) scale(0) rotate(0deg);
+    opacity: 0;
+    top: 54px;
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-15px) scale(1) rotate(-10deg);
+    top: 16px;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-25px) scale(0.4) rotate(-22deg);
+    top: -25px;
+  }
+}
+
+/* Each footstep glows in then fades out */
+@keyframes wandererStep {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  35% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+/* ================================
+   FOOTER — MOBILE FIRST
+   ================================ */
+
+/*
+  On mobile the footer stacks vertically — brand on top, links below.
+  padding is reduced on small screens.
+*/
+footer {
+  background-color: #0f0f1a;
+  padding: 40px 20px 20px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-brand span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: #c9a84c;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.footer-brand p { color: #555; font-size: 0.875rem; max-width: 280px; }
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover { color: #c9a84c; }
+
+.footer-bottom {
+  color: #333;
+  font-size: 0.8125rem;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #1a1a2e;
+}
+
+/*
+  At 768px footer switches to the classic two-column layout —
+  brand left, links right.
+*/
+@media (min-width: 768px) {
+  footer { padding: 50px 60px 25px; }
+
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-links { justify-content: flex-end; }
+}
+
+
+/* ================================
+   FLOATING CHARACTER INDICATOR
+   ================================ */
+
+/*
+  On very small phones this floats a little closer to the edges.
+  We reduce padding and font size so it doesn't take too much space.
+*/
+.floating-character {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background-color: #1a1a2e;
+  color: #c9a84c;
+  border: 2px solid #c9a84c;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  animation: slideInRight 0.6s ease forwards;
+  animation-delay: 1s;
+  opacity: 0;
+  transition: transform 0.3s ease;
+  letter-spacing: 1px;
+  max-width: calc(100vw - 40px);
+}
+
+.floating-character:hover { transform: translateY(-3px); }
+
+@media (min-width: 768px) {
+  .floating-character {
+    bottom: 30px;
+    right: 30px;
+    padding: 12px 20px;
+    font-size: 0.875rem;
+  }
+}
+
+/* ================================
+   SEARCH BAR
+   ================================ */
+.search-container {
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-family: 'Lato', sans-serif;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  outline: none;
+  background: white;
+  color: #2c2c2c;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #c9a84c;
+}
+
+.search-input::placeholder {
+  color: #bbb;
+}
+
+/* ================================
+   GENRE FILTER BUTTONS
+   ================================ */
+.genre-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.genre-filter {
+  background: transparent;
+  color: #888;
+  border: 1.5px solid #ddd;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  width: auto;
+}
+
+.genre-filter:hover {
+  border-color: #c9a84c;
+  color: #c9a84c;
+}
+
+.genre-filter.active {
+  background-color: #1a1a2e;
+  color: #c9a84c;
+  border-color: #1a1a2e;
+}
+
+/* ================================
+   BOOK MODAL — READING VIEW
+   ================================ */
+.book-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #f5f0e8;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: fadeSlideUp 0.4s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #1a1a2e;
+  color: #c9a84c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  width: auto;
+}
+
+.modal-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  padding-right: 80px;
+}
+
+.modal-author {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.modal-body {
+  margin-top: 24px;
+  line-height: 1.8;
+  color: #444;
+}
+
+/* ================================
+   NOTIFICATION TOAST
+   ================================ */
+.notification {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  color: #c9a84c;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 9998;
+  border: 1.5px solid #c9a84c;
+  animation: fadeSlideUp 0.4s ease;
+  white-space: nowrap;
+}
+
+.notification-hide {
+  animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+/* ================================
+   SELECTED CHARACTER STATE
+   ================================ */
+.selected-character {
+  border: 2.5px solid #c9a84c !important;
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.3) !important;
+}
+
+/* ================================
+   RESULTS COUNT
+   ================================ */
+.results-count {
+  font-size: 0.875rem;
+  color: #888;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ================================
+   SKELETON LOADER
+   Pulsing placeholder cards shown
+   while real books are loading.
+   ================================ */
+.book-card.skeleton {
+  pointer-events: none;
+  animation: none;
+  opacity: 1;
+}
+
+.skeleton-img {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-text {
+  width: 80%;
+  height: 14px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  animation: skeletonPulse 1.5s ease-in-out infinite 0.1s;
+}
+
+.skeleton-text.short {
+  width: 55%;
+  animation-delay: 0.2s;
+}
+
+.skeleton-badge {
+  width: 60px;
+  height: 22px;
+  border-radius: 20px;
+  background: #e0e0e0;
+  animation: skeletonPulse 1.5s ease-in-out infinite 0.3s;
+}
+
+.skeleton-btn {
+  width: 100%;
+  height: 36px;
+  border-radius: 20px;
+  background: #e0e0e0;
+  animation: skeletonPulse 1.5s ease-in-out infinite 0.4s;
+  margin-top: auto;
+}
+
+@keyframes skeletonPulse {
+  0%   { background-color: #e0e0e0; }
+  50%  { background-color: #f0f0f0; }
+  100% { background-color: #e0e0e0; }
+}
+
+/* ================================
+   ERROR STATE
+   ================================ */
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+  width: 100%;
+  color: #888;
+}
+
+.error-icon  { font-size: 48px; margin-bottom: 16px; }
+.error-title { font-size: 20px; color: #1a1a2e; margin-bottom: 8px; font-weight: 700; }
+.error-message { font-size: 14px; margin-bottom: 24px; }
+
+.retry-btn {
+  background: #1a1a2e;
+  color: #c9a84c;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  width: auto;
+}
+
+/* ================================
+   PAGINATION
+   ================================ */
+.pagination { margin-top: 50px; text-align: center; }
+
+.pagination-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.page-btn {
+  background: #1a1a2e;
+  color: #c9a84c;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: background 0.3s ease;
+  width: auto;
+}
+
+.page-btn:hover:not(:disabled) { background: #c9a84c; color: #1a1a2e; }
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 13px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* ================================
+   MODAL UPDATES FOR REAL BOOKS
+   ================================ */
+.modal-header {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+
+.modal-cover {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+  padding-right: 0;
+}
+
+.modal-author   { color: #888; font-size: 14px; margin-bottom: 6px; }
+.modal-subjects { color: #c9a84c; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+.modal-downloads { color: #bbb; font-size: 12px; }
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.modal-read-btn,
+.modal-gutenberg-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.modal-read-btn {
+  background: #1a1a2e;
+  color: #c9a84c;
+}
+
+.modal-read-btn:hover { background: #c9a84c; color: #1a1a2e; }
+
+.modal-gutenberg-btn {
+  background: transparent;
+  color: #888;
+  border: 1px solid #ddd;
+}
+
+.modal-gutenberg-btn:hover { border-color: #c9a84c; color: #c9a84c; }
+
+.modal-loading {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-style: italic;
+}
+
+/* ================================
+   NO RESULTS STATE
+   ================================ */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  width: 100%;
+  color: #888;
+  font-size: 16px;
+  line-height: 2;
+}
