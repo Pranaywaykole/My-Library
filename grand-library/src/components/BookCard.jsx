@@ -1,14 +1,22 @@
-function BookCard({ book, onReadNow }) {
+import { useNavigate } from 'react-router-dom'
+function BookCard({ book }) {
   /*
     Format author name from "Austen, Jane" to "Jane Austen"
   */
+  const navigate = useNavigate()
+   function handleReadNow() {
+    navigate(`/reader/${book.id}`)
+  }
+  function handleReadNow() {
+    navigate(`/reader/${book.id}`)
+  }
   function formatAuthor(raw) {
     if (!raw) return "Unknown Author";
     const parts = raw.split(",");
     if (parts.length === 2) return `${parts[1].trim()} ${parts[0].trim()}`;
-     console.log(book)
     return raw;
-   }
+  }
+  
 
   const author     = formatAuthor(book.authors[0]?.name);
   const coverUrl   = book.formats["image/jpeg"]
@@ -41,9 +49,7 @@ function BookCard({ book, onReadNow }) {
 
       <span className="genre-tag">{genre}</span>
 
-      <button onClick={() => onReadNow(book.id)}>
-        Read Now
-      </button>
+      <button onClick={handleReadNow}>Read Now</button>
 
     </div>
   );
